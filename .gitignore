@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # My own
-database/init.sql
 docker-compose.yml
+config/hosts.py

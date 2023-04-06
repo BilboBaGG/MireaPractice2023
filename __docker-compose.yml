@@ -1,14 +1,17 @@
 version: "3.3"
 services:
-  app :
-    build: .
+
   postgres:
-    restart: always
     image: postgres:latest
+    restart: always
     environment:
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: password
-    volumes:
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      POSTGRES_PASSWORD: some_interesting_password
+      POSTGRES_DB: telegram
     ports:
       - "5432:5432"
+  app :
+    build: .
+    restart: always
+    depends_on:
+      - postgres
