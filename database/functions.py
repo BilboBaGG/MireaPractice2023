@@ -7,27 +7,33 @@ from models.student import Student
 from config.hosts import *
 
 class ORM:
-    def __init__(self): # Creating database
-        time.sleep(3)
+    def __init__(self):
         self.engine = create_engine(DBSTRING)  
         
         self.meta = MetaData(self.engine)  
 
+    def CreateTable(self):
         self.table = Table('users', self.meta, 
-                       Column('id', String),
-                       Column('group', String)) # Create table class
+                       Column('telegram_id', String),
+                       Column('group', String)) 
         
         self.meta.create_all(self.engine)
-
-
-        session = self.getSession()
-
-        session.add(Student(id="19123", group="БИСО-03-22"))
-        session.commit()
-
-        print(session.scalars(select(Student).filter_by(id="19123")).first().group)
-
         
-    def getSession(self):
+    def GetSession(self):
         Session = sessionmaker(self.engine)
         return Session()
+    
+    def AddStudent(self, telegram_id_, group_):
+        session = self.GetSession()
+        session.add(Student(telegram_id=telegram_id_, group=group_))
+        session.commit()
+
+    def GetStudent(self, telegram_id_):
+        session = self.GetSession()
+        return session.scalars(select(Student).filter_by(telegram_id=telegram_id_)).first()
+        
+    def UpdateStudentGroup(self, telegram_id_, group_):
+        session = self.GetSession()
+        session.query(Student).filter(Student.telegram_id==telegram_id_).update({'group': group_})
+        session.commit()
+

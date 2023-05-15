@@ -6,5 +6,5 @@ Base = declarative_base()
 class Student(Base):
    __tablename__ = 'users'
    
-   id = Column(String, primary_key=True)
+   telegram_id = Column(String, primary_key=True)
    group = Column(String)
