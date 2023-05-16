@@ -1,11 +1,23 @@
 from database.functions import ORM
+import telebot
+import time
 
+time.sleep(3)
+
+print("--> Seccessfully connected to database")
+
+db = ORM()
+
+token = '5524674402:AAHc131tO94lxIsL5tCcQcj7fDUM6EyDtXc'
+bot = telebot.TeleBot(token)
+
+@bot.message_handler(commands=['start'])
+def tomorrow_lessons(message):
+    output = "Hello world"
+    bot.send_message(message.chat.id, output)
+    print("Good connection from " + str(message.chat.id))
+        
 if __name__ == "__main__":
-    db = ORM()
+    print("--> Bot secsessfully started")
+    bot.infinity_polling()
 
-    db.CreateTable()
-
-    db.AddStudent("Mikhail", "BISO-01-22")
-    print("Mikhail's group is :", db.GetStudent("Mikhail").group)
-    db.UpdateStudentGroup("Mikhail", "BISO-02-22")
-    print("Mikhail's group is :", db.GetStudent("Mikhail").group)
