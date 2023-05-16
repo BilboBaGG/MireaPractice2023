@@ -5,7 +5,7 @@ def get_lessons(NAME):
 
 	lessons = [["" for i in range(7)] for i in range(12)] # 7 пар каждый день в течение двух недель
 
-	excel_file = load_workbook('./parser/IKTST_1_k_vesna_22_23.xlsx')
+	excel_file = load_workbook('./parser/IKB.xlsx')
 
 	sheet_names = excel_file.sheetnames
 
@@ -18,14 +18,14 @@ def get_lessons(NAME):
 		except:
 			continue
 
-		if sheet["DG2"].value == NAME or sheet["DV2"].value == NAME or sheet["DL2"].value == NAME: # Поиск группы
+		if sheet["EA2"].value == NAME or sheet["EK2"].value == NAME or sheet["EP2"].value == NAME: # Поиск группы
 
-			if sheet["DL2"].value == NAME:
-				row = "DL"
-			elif sheet["DG2"].value == NAME:
-				row = "DG"
+			if sheet["EA2"].value == NAME:
+				row = "EA"
+			elif sheet["EK2"].value == NAME:
+				row = "EK"
 			else:
-				row = "DV"
+				row = "EP"
 
 
 			for i in range(4,88): # Строки таблицы с 4-ой по 88-ую
@@ -71,11 +71,3 @@ def get_lessons(NAME):
 	lessons.append([])
 	#print(lessons)
 	return lessons
-
-for i in get_lessons("БИСО-01-22"):
-	print(i,"\n")
-
-'''
-Возвращает массив из 14 массивов (14 дней в двух неделях)
-В каждом из этих массивов 7 массивов с информацией о паре(7 пар в день)
-'''

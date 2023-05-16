@@ -14,8 +14,7 @@ class ORM:
     def CreateTable(self):
         self.table = Table('users', self.meta, 
                        Column('telegram_id', String),
-                       Column('group', String),
-                       Column('is_set_group',Boolean)) 
+                       Column('group', String)) 
         
         self.meta.create_all(self.engine)
         
@@ -32,14 +31,11 @@ class ORM:
         session = self.GetSession()
         return session.scalars(select(Student).filter_by(telegram_id=telegram_id_)).first()
     
+    def IsStudentExists(self, telegram_id_):
+        session = self.GetSession()
+        return session.scalars(select(Student).filter_by(telegram_id=telegram_id_)).first() is not None
         
     def UpdateStudentGroup(self, telegram_id_, group_):
         session = self.GetSession()
         session.query(Student).filter(Student.telegram_id==telegram_id_).update({'group': group_})
-        session.commit()
-
-        
-    def UpdateIsSetGroup(self, telegram_id_, is_set_group_):
-        session = self.GetSession()
-        session.query(Student).filter(Student.telegram_id==telegram_id_).update({'is_set_group': is_set_group_})
         session.commit()

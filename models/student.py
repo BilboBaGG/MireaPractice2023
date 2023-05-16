@@ -8,4 +8,3 @@ class Student(Base):
    
    telegram_id = Column(String, primary_key=True)
    group = Column(String)
-   is_set_gruop = Column(Boolean)
