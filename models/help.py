@@ -1,3 +1,0 @@
-helpMenu = """
-hahah
-"""

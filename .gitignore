@@ -129,5 +129,3 @@ dmypy.json
 .pyre/
 
 # My own
-docker-compose.yml
-config/hosts.py
